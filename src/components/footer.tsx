@@ -9,12 +9,11 @@ function Footer() {
                     {/* Logo + Description */}
                     <div>
                         <h3 className="text-xl font-semibold text-gray-900">
-                            Resume Shortlisting Assistant
+                            Resume Generator Agent
                         </h3>
                         <p className="mt-2 text-sm leading-relaxed">
-                            Automates resume evaluation and shortlisting, surfacing top candidates 
-                            based on job fit, skills, and experience—reducing bias and 
-                            administrative effort.
+                            Create professional, AI-powered resumes instantly. 
+                            Tailored to your career goals and optimized for applicant tracking systems (ATS).
                         </p>
                     </div>
 
@@ -29,13 +28,13 @@ function Footer() {
                                 <a href="#" className="hover:underline">How It Works</a>
                             </li>
                             <li>
-                                <a href="#" className="hover:underline">Features</a>
+                                <a href="#" className="hover:underline">Templates</a>
                             </li>
                             <li>
-                                <a href="#" className="hover:underline">Use Cases</a>
+                                <a href="#" className="hover:underline">Pricing</a>
                             </li>
                             <li>
-                                <a href="#" className="hover:underline">Contact</a>
+                                <a href="#" className="hover:underline">Support</a>
                             </li>
                         </ul>
                     </div>
@@ -53,13 +52,16 @@ function Footer() {
                             <li>
                                 <a href="#" className="hover:text-blue-800">LinkedIn</a>
                             </li>
+                            <li>
+                                <a href="#" className="hover:text-green-600">GitHub</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
 
                 {/* Bottom note */}
                 <div className="mt-10 text-center text-xs text-gray-500">
-                    © {new Date().getFullYear()} Resume Shortlisting Assistant. All rights reserved.
+                    © {new Date().getFullYear()} Resume Generator Agent. All rights reserved.
                 </div>
             </footer>
         </div>

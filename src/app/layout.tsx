@@ -20,8 +20,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: " Resume Shortlisting Assistant",
-  description: "Automates resume evaluation and shortlisting, surfacing top candidates based on job fit, skills, and experience—reducing bias and administrative effort.",
+  title: " Resume Generator Agent",
+  description: "Create professional, AI-powered resumes instantly. Tailored to your career goals and optimized for applicant tracking systems (ATS).",
 };
 
 export default function RootLayout({

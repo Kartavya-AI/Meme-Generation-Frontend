@@ -44,7 +44,7 @@ function Header() {
                         </li>
 
                         <li className="text-zinc-500 hover:text-zinc-800 hover:text-2xl transition-all duration-100 hover:font-bold">
-                            <Link href={"/shortlist"}>Shortlist</Link>
+                            <Link href={"/resume-generator"}>Generate</Link>
                         </li>
                     </ul>
 
@@ -92,7 +92,7 @@ function Header() {
                             <Link href={"/"}>Home</Link>
                         </li>
                         <li>
-                            <Link href={"/shortlist"}>Shortlist</Link>
+                            <Link href={"/resume-generator"}>Generate</Link>
                         </li>
                         <SignedOut>
                             <div>

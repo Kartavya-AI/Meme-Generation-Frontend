@@ -14,33 +14,33 @@ import open from "../../public/images/share (1).png";
 const reviews = [
     {
         name: "Neha Kapoor",
-        username: "@neha_hr",
-        body: "The Resume Shortlisting Assistant has drastically reduced our screening time. We can now process thousands of applications in hours instead of weeks.",
+        username: "@neha_writer",
+        body: "The Resume Generator Agent made creating my resume so simple. I just gave my details and it instantly generated a professional, ATS-friendly format.",
     },
     {
         name: "Arjun Malhotra",
-        username: "@arjun_recruiter",
-        body: "I love how it highlights top candidates based on skills and experience. The scoring system makes shortlisting objective and data-driven.",
+        username: "@arjun_jobseeker",
+        body: "I loved how it tailored my resume for different roles. The AI suggestions on skills and keywords really boosted my chances of getting shortlisted.",
     },
     {
         name: "Simran Joshi",
-        username: "@simran_enterpriseHR",
-        body: "As part of an enterprise HR team, this tool integrates seamlessly with our ATS and helps us filter candidates with the exact qualifications we need.",
+        username: "@simran_fresher",
+        body: "As a fresher, I struggled with writing resumes. This tool gave me multiple polished templates and highlighted my strengths perfectly.",
     },
     {
         name: "Ravi Deshmukh",
-        username: "@ravi_startup",
-        body: "For our startup, this has been a game changer. Even without a dedicated HR team, we can confidently shortlist the best-fit candidates quickly.",
+        username: "@ravi_professional",
+        body: "For someone with years of experience, it helped me cut down clutter and focus on key achievements. The result looked modern and impactful.",
     },
     {
         name: "Pooja Nair",
         username: "@pooja_consultant",
-        body: "The ability to flag concerns like frequent job changes and gaps in employment helps us make better hiring decisions with less bias.",
+        body: "I liked how it automatically structured my resume to match industry standards. It even suggested action verbs that made my profile stronger.",
     },
     {
         name: "Karan Patel",
-        username: "@karan_ld",
-        body: "We use it for internal promotions and skill evaluations too. Identifying leadership potential and standout achievements is now effortless.",
+        username: "@karan_careercoach",
+        body: "I recommend this to my clients. Instead of wasting time formatting, they can instantly generate tailored resumes and focus on interview prep.",
     },
 ];
 
@@ -86,29 +86,29 @@ const ReviewCard = ({
 
 const steps = [
     {
-        title: "Step 1: Upload Resumes",
+        title: "Step 1: Collect User Input",
         description:
-            "Import resumes in bulk across formats (PDF, DOCX, TXT) from job boards, email, or ATS. The system parses and structures data automatically. (API: /upload-resumes)",
+            "Gather unstructured resume information from the user (name, experience, education, skills, achievements). Input can be free text or form-based. (API: /generate-resume)",
     },
     {
-        title: "Step 2: Define Role Profile",
+        title: "Step 2: Parse & Structure Data",
         description:
-            "Set job description, required skills, experience, education, and certifications. Customize weighting for different qualifications. (API: /define-role-profile)",
+            "AI extracts key sections like Work Experience, Education, Skills, Projects, and Certifications from the raw input. (API: /parse-resume)",
     },
     {
-        title: "Step 3: Automated Parsing & Matching",
+        title: "Step 3: Generate Resume Draft",
         description:
-            "AI extracts key details—skills, projects, outcomes, leadership traits—and matches candidates against the role profile. (API: /parse-match)",
+            "The system converts structured details into a polished resume draft in Markdown format, applying consistent formatting and styling. (API: /generate-resume)",
     },
     {
-        title: "Step 4: Shortlist & Flag",
+        title: "Step 4: Customize & Optimize",
         description:
-            "System ranks candidates, highlights achievements, and flags concerns such as gaps or frequent role changes for recruiter review. (API: /shortlist-flag)",
+            "User can select templates, adjust tone, highlight achievements, and tailor resumes for specific roles. (API: /optimize-resume)",
     },
     {
-        title: "Step 5: Export & Integrate",
+        title: "Step 5: Export & Share",
         description:
-            "Export shortlisted profiles with scores and insights. Integrate seamlessly with HR tools or ATS for next hiring stages. (API: /export-results)",
+            "Export the final resume in PDF, DOCX, or Markdown. Integrate with job portals or email directly. (API: /export-resume)",
     },
 ];
 
@@ -119,34 +119,33 @@ export default function Home() {
                 {/* Badge */}
                 <div className="group mb-5 relative mx-auto flex items-center justify-center rounded-full px-2 py-1.5 bg-zinc-100 shadow-zinc-500 shadow-md inset-shadow-2xs inset-shadow-white">
                     <h1 className="bg-zinc-100 shadow-zinc-500 shadow-md inset-shadow-2xs inset-shadow-white rounded-full h-8 w-8 flex justify-center items-center">
-                        🤖
+                        📄
                     </h1>
 
                     <div className="text-sm px-3 font-medium text-zinc-600">
-                        AI-Powered Resume Shortlisting Assistant
+                        AI-Powered Resume Generator Agent
                     </div>
                 </div>
 
                 {/* Heading */}
                 <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight text-primary mb-6">
-                    Shortlist Top Candidates Instantly — Smarter Hiring with AI
+                    Craft Professional Resumes in Seconds with AI
                 </h1>
 
                 {/* Subheading */}
                 <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-8">
-                    Automate resume evaluation and shortlisting. Parse thousands
-                    of resumes, match skills and experience to role profiles,
-                    and surface the best-fit candidates — reducing bias and
-                    saving valuable hiring time.
+                    Generate ATS-friendly, job-specific resumes tailored to your
+                    skills and experience. Stand out with well-structured,
+                    personalized resumes — built instantly and ready to use.
                 </p>
 
                 {/* CTA */}
                 <div>
                     <Link
-                        href="/shortlist"
+                        href="/resume-generator"
                         className="rounded-full px-4 py-2 text-xl hover:shadow-lg cursor-pointer text-zinc-600 bg-zinc-100 shadow-zinc-500 shadow-md flex items-center gap-2"
                     >
-                        <span>Start Shortlisting Resumes</span>
+                        <span>Create My Resume</span>
                         <div className="rounded-full h-9 w-9 flex justify-center items-center hover:shadow-lg cursor-pointer text-zinc-600 bg-zinc-100 shadow-zinc-500 shadow-md">
                             <Image
                                 src={open}
@@ -189,20 +188,19 @@ export default function Home() {
                 {/* Text Section */}
                 <div className="md:w-1/2 text-center md:text-left space-y-4 order-2 md:order-1">
                     <h2 className="text-3xl md:text-5xl font-bold text-primary">
-                        Shortlist Resumes Instantly with AI.
+                        Create Professional Resumes in Seconds with AI.
                     </h2>
                     <p className="text-lg text-muted-foreground">
-                        Our AI Resume Shortlisting Assistant automates
-                        evaluation by parsing thousands of resumes, matching
-                        candidates to role requirements, and surfacing top
-                        talent. Save time, reduce bias, and focus on smarter
-                        hiring decisions.
+                        Our AI Resume Generator Agent crafts tailored,
+                        ATS-friendly resumes instantly. Enter your details, pick
+                        a style, and get a polished resume that highlights your
+                        strengths and boosts your chances of landing interviews.
                     </p>
                     <div className="mt-4">
-                        <Link href="/shortlist">
+                        <Link href="/resume-generator">
                             <button className="shadow-2xl">
                                 <span className="rounded-full px-4 py-2 text-xl hover:shadow-lg cursor-pointer text-zinc-600 bg-zinc-100 shadow-zinc-500 shadow-md inset-shadow-2xs inset-shadow-white">
-                                    ● Start Shortlisting
+                                    ● Generate My Resume
                                 </span>
                             </button>
                         </Link>
@@ -212,8 +210,8 @@ export default function Home() {
                 {/* Image Section */}
                 <div className="md:w-1/2 mt-10 md:mt-0 order-1 md:order-2 flex bg-zinc-100 shadow-zinc-500 shadow-md inset-shadow-2xs inset-shadow-white p-2 rounded-2xl justify-center">
                     <Image
-                        src={resumeIllustration} // Replace with illustration relevant to resume shortlisting
-                        alt="AI-Powered Resume Shortlisting"
+                        src={resumeIllustration} // Replace with illustration relevant to resume creation
+                        alt="AI Resume Generator"
                         className="w-full shadow-lg h-full rounded-lg object-cover"
                         width={10}
                         height={10}
@@ -251,15 +249,15 @@ export default function Home() {
                         className="bg-zinc-100 shadow-zinc-500 shadow-md inset-shadow-2xs inset-shadow-white rounded-2xl px-5 my-1"
                     >
                         <AccordionTrigger>
-                            1. What is the Resume Shortlisting Assistant?
+                            1. What is the Resume Generator Agent?
                         </AccordionTrigger>
                         <AccordionContent className="flex flex-col gap-4 text-balance">
                             <p>
-                                It&apos;s an AI-powered tool that automates
-                                resume evaluation and shortlisting, surfacing
-                                top candidates based on job fit, skills, and
-                                experience. It reduces bias, saves time, and
-                                improves hiring quality.
+                                It&apos;s an AI-powered tool that transforms raw
+                                user input into a polished, professional,
+                                ATS-friendly resume. It formats your details,
+                                highlights your strengths, and generates a
+                                ready-to-use resume instantly.
                             </p>
                         </AccordionContent>
                     </AccordionItem>
@@ -273,12 +271,10 @@ export default function Home() {
                         </AccordionTrigger>
                         <AccordionContent className="flex flex-col gap-4 text-balance">
                             <p>
-                                The assistant parses resumes in multiple
-                                formats, extracts key skills, education, and
-                                experiences, and matches them against job
-                                descriptions or custom role profiles. It then
-                                ranks candidates objectively using customizable
-                                weighting.
+                                Simply enter your career details, skills, and
+                                achievements. The AI automatically structures
+                                the content, applies professional formatting,
+                                and generates a resume in your chosen style.
                             </p>
                         </AccordionContent>
                     </AccordionItem>
@@ -288,14 +284,14 @@ export default function Home() {
                         className="bg-zinc-100 shadow-zinc-500 shadow-md inset-shadow-2xs inset-shadow-white rounded-2xl px-5 my-1"
                     >
                         <AccordionTrigger>
-                            3. What filters can recruiters apply?
+                            3. Can I customize my resume design?
                         </AccordionTrigger>
                         <AccordionContent className="flex flex-col gap-4 text-balance">
                             <p>
-                                Recruiters can filter candidates by education,
-                                certifications, keywords, project history,
-                                skills, outcomes, and even soft skills to
-                                identify the best fit quickly.
+                                Yes. You can choose from multiple templates
+                                (Modern, Minimal, Creative, Professional) and
+                                customize sections like education, work
+                                experience, projects, and skills.
                             </p>
                         </AccordionContent>
                     </AccordionItem>
@@ -305,14 +301,14 @@ export default function Home() {
                         className="bg-zinc-100 shadow-zinc-500 shadow-md inset-shadow-2xs inset-shadow-white rounded-2xl px-5 my-1"
                     >
                         <AccordionTrigger>
-                            4. Can it detect red flags in resumes?
+                            4. Does it create ATS-friendly resumes?
                         </AccordionTrigger>
                         <AccordionContent className="flex flex-col gap-4 text-balance">
                             <p>
-                                Yes. The assistant flags issues like unexplained
-                                employment gaps, frequent job changes, or
-                                mismatches with role requirements — helping
-                                recruiters make informed decisions faster.
+                                Absolutely. The generated resumes follow
+                                ATS-friendly formatting and keyword
+                                optimization, so your application passes through
+                                automated hiring systems smoothly.
                             </p>
                         </AccordionContent>
                     </AccordionItem>
@@ -322,14 +318,14 @@ export default function Home() {
                         className="bg-zinc-100 shadow-zinc-500 shadow-md inset-shadow-2xs inset-shadow-white rounded-2xl px-5 my-1"
                     >
                         <AccordionTrigger>
-                            5. Does it integrate with HR systems?
+                            5. Can I generate resumes for different job roles?
                         </AccordionTrigger>
                         <AccordionContent className="flex flex-col gap-4 text-balance">
                             <p>
-                                Absolutely. It integrates seamlessly with
-                                existing Applicant Tracking Systems (ATS) and HR
-                                tools, so teams don’t need to change their
-                                current workflow.
+                                Yes. You can create tailored resumes for
+                                specific job applications by highlighting
+                                role-relevant skills and achievements in just a
+                                few clicks.
                             </p>
                         </AccordionContent>
                     </AccordionItem>
@@ -343,10 +339,9 @@ export default function Home() {
                         </AccordionTrigger>
                         <AccordionContent className="flex flex-col gap-4 text-balance">
                             <p>
-                                HR teams handling high-volume applications,
-                                enterprises, startups without dedicated
-                                recruiters, staffing agencies, and companies
-                                running seasonal or project-based hiring drives.
+                                Job seekers, students, professionals exploring
+                                new roles, freelancers, and even career coaches
+                                who need quick, high-quality resume drafts.
                             </p>
                         </AccordionContent>
                     </AccordionItem>
@@ -356,14 +351,13 @@ export default function Home() {
                         className="bg-zinc-100 shadow-zinc-500 shadow-md inset-shadow-2xs inset-shadow-white rounded-2xl px-5 my-1"
                     >
                         <AccordionTrigger>
-                            7. Does it reduce bias in hiring?
+                            7. Can I export my resume?
                         </AccordionTrigger>
                         <AccordionContent className="flex flex-col gap-4 text-balance">
                             <p>
-                                Yes. By focusing on skills, qualifications, and
-                                outcomes instead of personal identifiers, the
-                                tool helps organizations make fairer,
-                                data-driven hiring decisions.
+                                Yes. Resumes can be exported in multiple formats
+                                including PDF, DOCX, and Markdown for editing
+                                flexibility.
                             </p>
                         </AccordionContent>
                     </AccordionItem>
@@ -377,10 +371,10 @@ export default function Home() {
                         </AccordionTrigger>
                         <AccordionContent className="flex flex-col gap-4 text-balance">
                             <p>
-                                Core resume parsing and ranking features are
-                                free to try. Advanced features — such as bulk
-                                resume uploads, custom weighting, and enterprise
-                                integrations — may require a subscription.
+                                Core resume generation features are free.
+                                Premium features like advanced templates,
+                                multi-language support, and export to DOCX may
+                                require a subscription.
                             </p>
                         </AccordionContent>
                     </AccordionItem>
