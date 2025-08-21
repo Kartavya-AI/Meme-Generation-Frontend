@@ -31,7 +31,7 @@ const Logo = () => (
 function Header() {
     const [open, setOpen] = useState(false);
     return (
-        <div className="w-full z-30 fixed top-0 h-20 bg-zinc-100 px-4 sm:px-20 flex justify-center md:px-36">
+        <div className="w-full z-50 fixed top-0 h-20 bg-zinc-100 px-4 sm:px-20 flex justify-center md:px-36">
             <header className=" w-full max-w-6xl h-16 bg-zinc-100  shadow-zinc-500 shadow-md inset-shadow-2xs inset-shadow-white mt-2 rounded-full">
                 <div className="h-16 flex items-center justify-between w-full">
                     {/* Logo */}
@@ -39,12 +39,12 @@ function Header() {
 
                     {/* Desktop Nav */}
                     <ul className="hidden md:flex h-14  items-center gap-10 text-xl">
-                        <li className="text-zinc-500 hover:text-zinc-800 hover:text-2xl transition-all duration-100 hover:font-bold">
+                        <li className="text-zinc-500 hover:text-zinc-800 hover:text-2xl transition-all duration-200 hover:font-bold">
                             <Link href="/">Home</Link>
                         </li>
 
-                        <li className="text-zinc-500 hover:text-zinc-800 hover:text-2xl transition-all duration-100 hover:font-bold">
-                            <Link href={"/resume-generator"}>Generate</Link>
+                        <li className="text-zinc-500 hover:text-zinc-800 hover:text-2xl transition-all duration-200 hover:font-bold">
+                            <Link href={"/report-generator"}>Generate</Link>
                         </li>
                     </ul>
 
@@ -92,7 +92,7 @@ function Header() {
                             <Link href={"/"}>Home</Link>
                         </li>
                         <li>
-                            <Link href={"/resume-generator"}>Generate</Link>
+                            <Link href={"/report-generator"}>Generate</Link>
                         </li>
                         <SignedOut>
                             <div>

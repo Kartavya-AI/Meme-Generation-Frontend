@@ -9,11 +9,11 @@ function Footer() {
                     {/* Logo + Description */}
                     <div>
                         <h3 className="text-xl font-semibold text-gray-900">
-                            Resume Generator Agent
+                            AI Report Generator
                         </h3>
                         <p className="mt-2 text-sm leading-relaxed">
-                            Create professional, AI-powered resumes instantly. 
-                            Tailored to your career goals and optimized for applicant tracking systems (ATS).
+                            Generate professional, AI-powered reports on any topic.
+                            Designed for business, research, and strategic insights.
                         </p>
                     </div>
 
@@ -22,19 +22,10 @@ function Footer() {
                         <h4 className="text-md font-semibold mb-2">Quick Links</h4>
                         <ul className="space-y-1 text-sm">
                             <li>
-                                <a href="#" className="hover:underline">Home</a>
+                                <a href="/" className="hover:underline">Home</a>
                             </li>
                             <li>
-                                <a href="#" className="hover:underline">How It Works</a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:underline">Templates</a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:underline">Pricing</a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:underline">Support</a>
+                                <a href="/report-generator" className="hover:underline">Generate Report</a>
                             </li>
                         </ul>
                     </div>
@@ -61,7 +52,7 @@ function Footer() {
 
                 {/* Bottom note */}
                 <div className="mt-10 text-center text-xs text-gray-500">
-                    © {new Date().getFullYear()} Resume Generator Agent. All rights reserved.
+                    © {new Date().getFullYear()} Kartavya Technology. All rights reserved.
                 </div>
             </footer>
         </div>
