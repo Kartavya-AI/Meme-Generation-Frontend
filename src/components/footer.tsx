@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 function Footer() {
     return (
@@ -22,10 +23,10 @@ function Footer() {
                         <h4 className="text-md font-semibold mb-2">Quick Links</h4>
                         <ul className="space-y-1 text-sm">
                             <li>
-                                <a href="/" className="hover:underline">Home</a>
+                                <Link href="/" className="hover:underline">Home</Link>
                             </li>
                             <li>
-                                <a href="/report-generator" className="hover:underline">Generate Report</a>
+                                <Link href="/report-generator" className="hover:underline">Generate Report</Link>
                             </li>
                         </ul>
                     </div>

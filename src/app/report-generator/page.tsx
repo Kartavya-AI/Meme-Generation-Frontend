@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import { marked } from "marked"; // to render markdown
+import { marked } from "marked"; // render markdown
 import { saveAs } from "file-saver";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
@@ -17,7 +17,6 @@ interface ReportResponse {
     generated_at: string;
     word_count: number;
     status: string;
-    metadata: Record<string, any>;
 }
 
 const REPORT_TYPES = [
@@ -31,7 +30,7 @@ const REPORT_TYPES = [
 
 export default function ReportGeneratorPage() {
     const [topic, setTopic] = useState("");
-    const [reportType, setReportType] = useState("Comprehensive Analysis");
+    const [reportType, setReportType] = useState(REPORT_TYPES[0]);
     const [length, setLength] = useState(5);
     const [includeCharts, setIncludeCharts] = useState(false);
     const [includeSources, setIncludeSources] = useState(false);
@@ -44,13 +43,12 @@ export default function ReportGeneratorPage() {
     const reportRef = useRef<HTMLDivElement>(null);
     const [parsed, setParsed] = useState("");
 
-    const API_URL = "https://researcher-977121587860.asia-south1.run.app/";
+    const API_URL =
+        "https://researcher-977121587860.asia-south1.run.app";
 
     useEffect(() => {
         if (result?.content) {
-            const html = marked.parse(result.content, {
-                async: false,
-            }) as string;
+            const html = marked.parse(result.content) as string;
             setParsed(html);
         }
     }, [result]);
@@ -79,8 +77,6 @@ export default function ReportGeneratorPage() {
                 include_sources: includeSources,
                 use_crew: useCrew,
             });
-
-            console.log(res);
 
             setResult(res.data);
         } catch (err) {
@@ -111,8 +107,7 @@ export default function ReportGeneratorPage() {
     /** Download as PDF */
     const handleDownloadPDF = async () => {
         if (reportRef.current) {
-            const element = reportRef.current;
-            const canvas = await html2canvas(element, { scale: 2 });
+            const canvas = await html2canvas(reportRef.current, { scale: 2 });
             const imgData = canvas.toDataURL("image/png");
 
             const pdf = new jsPDF("p", "mm", "a4");
@@ -134,12 +129,11 @@ export default function ReportGeneratorPage() {
             />
 
             <div className="max-w-5xl mx-auto p-6 pt-16 space-y-6">
-                <h1 className="text-3xl  z-20 md:text-5xl font-bold tracking-tight text-primary">
+                <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-primary">
                     📊 AI Report Generator
                 </h1>
-                <p className="text-gray-600 z-20 ">
-                    Generate a professional, detailed report on any topic using
-                    AI.
+                <p className="text-gray-600">
+                    Generate a professional, detailed report on any topic using AI.
                 </p>
 
                 {/* Input Form */}
@@ -147,7 +141,7 @@ export default function ReportGeneratorPage() {
                     <input
                         value={topic}
                         onChange={(e) => setTopic(e.target.value)}
-                        className="p-3  z-20  shadow-md inset-shadow-2xs inset-shadow-white bg-zinc-100 shadow-zinc-500 rounded-lg"
+                        className="p-3 shadow-md inset-shadow-2xs inset-shadow-white bg-zinc-100 shadow-zinc-500 rounded-lg"
                         placeholder="Enter your topic (e.g. child labour in India)"
                     />
 
@@ -155,7 +149,7 @@ export default function ReportGeneratorPage() {
                     <select
                         value={reportType}
                         onChange={(e) => setReportType(e.target.value)}
-                        className="p-3  z-20  shadow-md inset-shadow-2xs inset-shadow-white bg-zinc-100 shadow-zinc-500 rounded-lg"
+                        className="p-3 shadow-md inset-shadow-2xs inset-shadow-white bg-zinc-100 shadow-zinc-500 rounded-lg"
                     >
                         {REPORT_TYPES.map((type) => (
                             <option key={type}>{type}</option>
@@ -170,7 +164,7 @@ export default function ReportGeneratorPage() {
                             max={10}
                             value={length}
                             onChange={(e) => setLength(Number(e.target.value))}
-                            className="p-2  z-20  w-20 shadow-md inset-shadow-2xs inset-shadow-white bg-zinc-100 shadow-zinc-500 rounded-lg"
+                            className="p-2 w-20 shadow-md inset-shadow-2xs inset-shadow-white bg-zinc-100 shadow-zinc-500 rounded-lg"
                         />
                     </label>
 
@@ -187,11 +181,9 @@ export default function ReportGeneratorPage() {
                     <label className="flex items-center gap-2">
                         <input
                             type="checkbox"
-                             className="cursor-pointer"
+                            className="cursor-pointer"
                             checked={includeSources}
-                            onChange={(e) =>
-                                setIncludeSources(e.target.checked)
-                            }
+                            onChange={(e) => setIncludeSources(e.target.checked)}
                         />
                         Include Sources
                     </label>
@@ -199,7 +191,7 @@ export default function ReportGeneratorPage() {
                     <label className="flex items-center gap-2">
                         <input
                             type="checkbox"
-                             className="cursor-pointer"
+                            className="cursor-pointer"
                             checked={useCrew}
                             onChange={(e) => setUseCrew(e.target.checked)}
                         />
@@ -208,7 +200,7 @@ export default function ReportGeneratorPage() {
                 </div>
 
                 {/* Generate Button */}
-                <div className="mt-6 z-20">
+                <div className="mt-6">
                     <button
                         onClick={handleGenerateReport}
                         disabled={loading}
