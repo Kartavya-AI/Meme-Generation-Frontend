@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -11,46 +13,80 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion";
 import reportIllustration from "../../public/images/markus-spiske-XrIfY_4cK1w-unsplash.jpg";
-import open from "../../public/images/share (1).png";
+import openIcon from "../../public/images/share (1).png";
 import profile from "../../public/images/profile-user.png";
 import { InteractiveGridPattern } from "@/components/magicui/interactive-grid-pattern";
 import { TextAnimate } from "@/components/magicui/text-animate";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+const videoReviews = [
+    { videoUrl: "https://res.cloudinary.com/dmoipkzuf/video/upload/v1754218288/jiop0jm3fanSSnGH_q0g4ho.mp4" },
+    { videoUrl: "https://res.cloudinary.com/dmoipkzuf/video/upload/v1754218289/pRK2wPltuKvNNRx0_nhyyol.mp4" },
+    { videoUrl: "https://res.cloudinary.com/dmoipkzuf/video/upload/v1754218291/Xo9CPCLsLNQZrPke_cdgctn.mp4" },
+    { videoUrl: "https://res.cloudinary.com/dmoipkzuf/video/upload/v1754218291/DtZE6aL8Ckb3FbdW_i39zgj.mp4" },
+    { videoUrl: "https://res.cloudinary.com/dmoipkzuf/video/upload/v1754218292/FssB7K6-fLi2J6AA_ijgnyl.mp4" },
+    { videoUrl: "https://res.cloudinary.com/dmoipkzuf/video/upload/v1754218293/hnIx9q0QttgnXsf8_p6ehem.mp4" },
+];
+
+const VideoCard = ({ videoUrl }: { videoUrl: string }) => {
+    return (
+        <div
+            className={cn(
+                "relative h-40 w-64 overflow-hidden bg-zinc-100  shadow-zinc-500 shadow-md inset-shadow-2xs inset-shadow-white p-2 rounded-lg ",
+            )}
+        >
+            <video
+                src={videoUrl}
+                className="h-full w-full object-cover rounded-sm"
+                autoPlay
+                muted
+                loop
+                playsInline
+            />
+        </div>
+    );
+};
+
 
 const reviews = [
     {
-        name: "Ananya Sharma",
-        username: "@ananya_researcher",
-        body: "The AI Report Generator saved me hours of work. I just uploaded my notes and it structured everything into a professional report instantly.",
+        name: "Riya Kapoor",
+        username: "@riya_creator",
+        body: "This app makes meme creation effortless! I clipped a scene, added text, and exported a video meme for Instagram in minutes.",
     },
     {
-        name: "Rohit Verma",
-        username: "@rohit_student",
-        body: "As a student, I often struggle with formatting reports. This tool made it so easy — clean layout, accurate citations, and ready to submit!",
+        name: "Aditya Singh",
+        username: "@aditya_influencer",
+        body: "The templates are amazing. I used them to launch a trending meme challenge — my engagement skyrocketed on TikTok!",
     },
     {
-        name: "Priya Mehta",
-        username: "@priya_manager",
-        body: "I used it for project documentation, and it organized data into clear sections. The AI summaries were sharp and to the point.",
+        name: "Megha Patel",
+        username: "@megha_memelover",
+        body: "I love how I can drag and drop stickers, emojis, and GIFs. The deep-fried effects made my memes go viral in group chats.",
     },
     {
-        name: "Siddharth Rao",
-        username: "@siddharth_consultant",
-        body: "The best part is customization. I could generate detailed or concise reports based on the audience. It really improved my client presentations.",
+        name: "Kunal Sharma",
+        username: "@kunal_brandmanager",
+        body: "As a marketer, this tool is gold. We created funny branded memes in HD, perfectly optimized for Instagram stories and reels.",
     },
     {
-        name: "Ishita Kulkarni",
-        username: "@ishita_writer",
-        body: "Normally, I spend hours editing reports. This generator handled formatting, flow, and even suggested professional headings.",
+        name: "Sneha Iyer",
+        username: "@sneha_student",
+        body: "I used to edit memes manually, but this app does it all — trim, crop, captions, filters, everything in one place!",
     },
     {
-        name: "Amit Bansal",
-        username: "@amit_professor",
-        body: "I recommend this to my students. Instead of wasting time on formatting, they can focus on research — the tool handles the structure flawlessly.",
+        name: "Arjun Desai",
+        username: "@arjun_gamer",
+        body: "The ability to export in GIF and MP4 with perfect aspect ratios is awesome. I share memes with my friends on WhatsApp daily now.",
     },
 ];
 
-const firstRow = reviews.slice(0, reviews.length / 2);
-const secondRow = reviews.slice(reviews.length / 2);
+const firstRow = videoReviews.slice(0, reviews.length / 2);
+const secondRow = videoReviews.slice(reviews.length / 2);
+
+const firstRowForReviews = reviews.slice(0, reviews.length / 2);
+const secondRowForReviews = reviews.slice(reviews.length / 2);
 
 const ReviewCard = ({
     name,
@@ -89,35 +125,167 @@ const ReviewCard = ({
     );
 };
 
+const API = "https://youtube-agent-977121587860.asia-south1.run.app";
+
 const steps = [
     {
-        title: "Step 1: Enter Report Details",
+        title: "Step 1: Paste Your Blog Link or Text",
         description:
-            "Provide a topic for your report and select the desired type (e.g., Comprehensive Analysis, Market Report, Research Report). (API: /generate-report)",
+            "Enter your blog URL or paste the article content directly into the app.",
     },
     {
-        title: "Step 2: Configure Options",
+        title: "Step 2: AI Turns Blog into Script",
         description:
-            "Adjust report length, choose whether to include charts or sources, and optionally enable CrewAI for collaborative generation.",
+            "Our AI reads your blog, picks key points, and converts them into a short, snappy meme script.",
     },
     {
-        title: "Step 3: Generate Draft",
+        title: "Step 3: Auto-Select Clip & Add Meme Text",
         description:
-            "The AI compiles structured sections such as Introduction, Analysis, Insights, and Conclusion into a polished draft. (API: /generate-report or /generate-report-crew)",
+            "The app matches your script with the perfect movie or trending clip and overlays catchy meme text.",
     },
     {
-        title: "Step 4: Review & Edit",
+        title: "Step 4: Customize Your Meme",
         description:
-            "Preview the generated report, formatted in Markdown. Make edits or refinements as needed before exporting.",
+            "Tweak the text, add stickers, emojis, effects, and adjust the clip speed or filters for extra impact.",
     },
     {
         title: "Step 5: Export & Share",
         description:
-            "Download the final report in Markdown or PDF, copy it directly, or integrate it into your workflow. (API: /export-report)",
+            "Download in MP4 or GIF with social-ready sizes, then share instantly on Instagram, TikTok, or WhatsApp.",
     },
 ];
 
 export default function Home() {
+    const userId = "newuser6";
+    const [connected, setConnected] = useState(false);
+    const [jobId, setJobId] = useState<string | null>(null);
+
+    const [watchUrl, setWatchUrl] = useState<string | null>(null);
+    const [open, setOpen] = useState(false);
+    const [topic, setTopic] = useState("");
+    const [subTopic, setSubTopic] = useState("");
+
+    const [blogUrl, setBlogUrl] = useState("");
+    const [status, setStatus] = useState("");
+    const [videoUrl, setVideoUrl] = useState("");
+
+    const startMemeGeneration = async () => {
+        try {
+            setStatus("running");
+
+            const res = await axios.post(
+                "https://meme-977121587860.asia-south1.run.app/generate_meme/",
+                { blog_url: blogUrl },
+                { headers: { "Content-Type": "application/json" } }
+            );
+
+            console.log(res);
+
+            const data = res.data;
+
+            if (data.job_id && data.status_url) {
+                pollStatus(data.status_url);
+            } else {
+                throw new Error("No job_id returned");
+            }
+        } catch (err) {
+            setStatus("error");
+
+            if (axios.isAxiosError(err)) {
+                if (err.response) {
+                    console.error(
+                        "Server error:",
+                        err.response.status,
+                        err.response.data
+                    );
+                } else if (err.request) {
+                    console.error("No response from server:", err.request);
+                } else {
+                    console.error("Request setup error:", err.message);
+                }
+            } else {
+                console.error("Unexpected error:", err);
+            }
+        }
+    };
+
+    const pollStatus = (statusUrl: string) => {
+        const interval = setInterval(async () => {
+            try {
+                const res = await axios.get(
+                    `https://meme-977121587860.asia-south1.run.app${statusUrl}`
+                );
+
+                const data = res.data;
+                console.log(data);
+
+                if (data.status === "complete") {
+                    clearInterval(interval);
+                    setStatus("done");
+                    setVideoUrl(data.video_url);
+                } else if (data.status === "error") {
+                    clearInterval(interval);
+                    setStatus("error");
+                }
+            } catch (err) {
+                clearInterval(interval);
+                setStatus("error");
+
+                if (axios.isAxiosError(err)) {
+                    if (err.response) {
+                        console.error(
+                            "Polling server error:",
+                            err.response.status,
+                            err.response.data
+                        );
+                    } else if (err.request) {
+                        console.error("Polling network error: No response");
+                    } else {
+                        console.error(
+                            "Polling request setup error:",
+                            err.message
+                        );
+                    }
+                } else {
+                    console.error("Unexpected polling error:", err);
+                }
+            }
+        }, 3000);
+    };
+
+    useEffect(() => {
+        if (!jobId || status !== "running") return;
+
+        const intervalId = setInterval(async () => {
+            try {
+                const { data } = await axios.get(
+                    `${API}/video/agent-job/${jobId}/status`
+                );
+                console.log("Polling response:", data);
+
+                if (data.status === "failed") {
+                    setStatus("error");
+                    clearInterval(intervalId);
+                    return;
+                }
+
+                if (data.status === "completed" && data.watch_url) {
+                    setWatchUrl(data.watch_url);
+                    setStatus("done");
+                    clearInterval(intervalId);
+                } else {
+                    // keep polling until watch_url appears
+                    setStatus("running");
+                }
+            } catch (err) {
+                console.error("Polling failed:", err);
+                setStatus("error");
+                clearInterval(intervalId);
+            }
+        }, 5000);
+
+        return () => clearInterval(intervalId);
+    }, [jobId, status]);
     return (
         <main className="mx-auto bg-zinc-100">
             <InteractiveGridPattern
@@ -130,20 +298,17 @@ export default function Home() {
                 {/* Badge */}
                 <div className="group mb-5 relative mx-auto flex items-center justify-center rounded-full px-2 py-1.5 bg-zinc-100 shadow-zinc-500 shadow-md inset-shadow-2xs inset-shadow-white">
                     <h1 className="bg-zinc-100 shadow-zinc-500 shadow-md inset-shadow-2xs inset-shadow-white rounded-full h-8 w-8 flex justify-center items-center">
-                        📊
+                        🎬
                     </h1>
 
                     <div className="text-sm font-light px-3 text-zinc-600">
-                        <AuroraText>
-                            AI-Powered Report Generator Agent
-                        </AuroraText>
+                        <AuroraText>Meme Creation App for Creators</AuroraText>
                     </div>
                 </div>
 
                 {/* Heading */}
                 <h1 className="text-5xl z-20 md:text-7xl font-bold tracking-tight leading-tight text-primary mb-6">
-                    Generate <AuroraText>Professional Reports</AuroraText> in
-                    Minutes with AI
+                    Create <AuroraText>Viral Video Memes</AuroraText> in Minutes
                 </h1>
 
                 {/* Subheading */}
@@ -152,22 +317,21 @@ export default function Home() {
                     by="word"
                     className="text-lg z-20 md:text-xl text-muted-foreground max-w-2xl mb-8"
                 >
-                    Create detailed, structured, and presentation-ready reports
-                    on any topic. From market analysis to research papers, our
-                    AI organizes your content into polished documents —
-                    instantly.
+                    Import clips, add meme-style text, drop in stickers, apply
+                    effects, and export in HD. From TikTok trends to Instagram
+                    reels, make share-worthy memes effortlessly.
                 </TextAnimate>
 
                 {/* CTA */}
                 <div className="z-20">
                     <Link
-                        href="/report-generator"
+                        href="#memeCreateSection"
                         className="rounded-full px-4 py-2 text-xl hover:shadow-lg cursor-pointer text-zinc-600 bg-zinc-100 shadow-zinc-500 shadow-md flex items-center gap-2"
                     >
-                        <span>Generate My Report</span>
+                        <span>Start Creating Memes</span>
                         <div className="rounded-full h-9 w-9 flex justify-center items-center hover:shadow-lg cursor-pointer text-zinc-600 bg-zinc-100 shadow-zinc-500 shadow-md">
                             <Image
-                                src={open}
+                                src={openIcon}
                                 alt="open icon"
                                 className="h-6 w-6"
                             />
@@ -207,58 +371,138 @@ export default function Home() {
                 </div>
             </section>
 
-            <section className="flex mt-10 gap-8 flex-col md:flex-row items-center justify-between px-4 md:px-36 py-12">
-                {/* Text Section */}
+             <section className="pt-10 lg:pt-24 pb-10 px-4 md:px-36 mx-auto">
+                <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
+                    AI-Generated Meme Video Samples
+                </h2>
+
+                <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
+                    <Marquee pauseOnHover className="[--duration:20s]">
+                        {firstRow.map((item, index) => (
+                            <VideoCard key={index} videoUrl={item.videoUrl} />
+                        ))}
+                    </Marquee>
+                    <Marquee reverse pauseOnHover className="[--duration:20s]">
+                        {secondRow.map((item, index) => (
+                            <VideoCard key={index} videoUrl={item.videoUrl} />
+                        ))}
+                    </Marquee>
+                    <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 " />
+                    <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 " />
+                </div>
+            </section>
+
+            <section id="memeCreateSection" className="flex mt-10 gap-8 flex-col md:flex-row items-center justify-between px-4 md:px-36 py-12">
+                {/* Left Column - Text + Form */}
                 <div className="md:w-1/2 text-center md:text-left space-y-4 order-2 md:order-1">
                     <h2 className="text-3xl md:text-5xl font-bold text-primary">
-                        Generate <AuroraText>Insightful Reports</AuroraText> in
-                        Seconds with AI.
+                        Turn{" "}
+                        <AuroraText>Blogs into Viral Meme Videos</AuroraText>{" "}
+                        Instantly
                     </h2>
 
                     <TextAnimate
                         animation="slideUp"
                         by="word"
-                        className="text-lg z-20 md:text-xl text-muted-foreground max-w-2xl mb-8"
+                        className="text-muted-foreground text-lg max-w-2xl mb-6"
                     >
-                        Our AI Report Generator Agent creates professional,
-                        well-structured reports instantly. Provide your topic or
-                        data, choose a style, and get a clear, polished report
-                        that communicates your insights effectively.
+                        Paste your blog link, and our AI Meme Creator will
+                        transform it into a fun, engaging meme-style video
+                        optimized for TikTok, Instagram, and WhatsApp.
                     </TextAnimate>
 
-                    <div className="mt-4">
-                        <Link href="/report-generator">
-                            <button className="shadow-2xl">
-                                <span className="rounded-full px-4 py-2 text-xl hover:shadow-lg cursor-pointer text-zinc-600 bg-zinc-100 shadow-zinc-500 shadow-md inset-shadow-2xs inset-shadow-white">
-                                    ● Generate My Report
-                                </span>
-                            </button>
-                        </Link>
+                    {/* Input */}
+                    <div className="space-y-2">
+                        <input
+                            type="text"
+                            value={blogUrl}
+                            onChange={(e) => setBlogUrl(e.target.value)}
+                            placeholder="https://your-blog-link.com"
+                            className=" px-4 py-2 rounded-lg w-full bg-zinc-100  shadow-zinc-500 shadow-md inset-shadow-2xs inset-shadow-white"
+                        />
                     </div>
+
+                    {/* CTA Button */}
+                    <div className="mt-4">
+                        <button
+                            onClick={startMemeGeneration}
+                            className="w-60 bg-zinc-100  shadow-zinc-500 shadow-md inset-shadow-2xs inset-shadow-white py-2 rounded-lg"
+                            disabled={status === "running" || !blogUrl}
+                        >
+                            {status === "running"
+                                ? "Generating..."
+                                : "Generate Meme Video"}
+                        </button>
+                    </div>
+
+                    {/* Status Messages */}
+                    {status === "running" && (
+                        <p className="text-green-800 mt-2">
+                            Creating your meme magic...
+                        </p>
+                    )}
+
+                    {status === "done" && videoUrl && (
+                        <div className="space-y-3 mt-4">
+                            <p className="text-green-600 font-semibold">
+                                Meme Video Ready!
+                            </p>
+                            <a
+                                href={videoUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="bg-zinc-100  shadow-zinc-500 shadow-md inset-shadow-2xs inset-shadow-white px-4 rounded-lg hover:shadow-lg py-2"
+                            >
+                                Watch in browser
+                            </a>
+                            <a
+                                href={videoUrl}
+                                download="meme-video.mp4"
+                                className="bg-zinc-100  shadow-zinc-500 shadow-md inset-shadow-2xs inset-shadow-white px-4 rounded-lg hover:shadow-lg py-2 ml-2"
+                            >
+                                Download MP4
+                            </a>
+                        </div>
+                    )}
+
+                    {status === "error" && (
+                        <p className="text-red-800 mt-2">
+                            An error occurred. Please try again.
+                        </p>
+                    )}
                 </div>
 
-                {/* Image Section */}
-                <div className="md:w-1/2 mt-10 md:mt-0 order-1 md:order-2 flex bg-zinc-100 shadow-zinc-500 shadow-md inset-shadow-2xs inset-shadow-white p-2 rounded-2xl justify-center">
-                    <Image
-                        src={reportIllustration} // Replace with illustration relevant to reports
-                        alt="AI Report Generator"
-                        className="w-full shadow-lg h-full rounded-lg object-cover"
-                        width={10}
-                        height={10}
-                        unoptimized
-                    />
+                {/* Right Column - Video Preview */}
+                <div className=" mt-10 md:mt-0 order-1 md:order-2 flex bg-zinc-100 shadow-zinc-500 shadow-md inset-shadow-2xs inset-shadow-white p-2 rounded-2xl justify-center">
+                    {status === "done" && videoUrl ? (
+                        <video
+                            src={videoUrl}
+                            className="w-72 h-[500px] object-cover rounded-lg shadow-lg"
+                            controls
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                        />
+                    ) : (
+                        <div className="w-full h-64 flex items-center justify-center bg-gray-100 dark:bg-gray-800 rounded-lg">
+                            <p className="text-gray-500 px-5">
+                                Your generated meme video will appear here
+                            </p>
+                        </div>
+                    )}
                 </div>
             </section>
 
             <section className="mt-20 mx-4 md:mx-36">
                 <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
                     <Marquee pauseOnHover className="[--duration:20s]">
-                        {firstRow.map((review) => (
+                        {firstRowForReviews.map((review) => (
                             <ReviewCard key={review.username} {...review} />
                         ))}
                     </Marquee>
                     <Marquee reverse pauseOnHover className="[--duration:20s]">
-                        {secondRow.map((review) => (
+                        {secondRowForReviews.map((review) => (
                             <ReviewCard key={review.username} {...review} />
                         ))}
                     </Marquee>
@@ -281,15 +525,14 @@ export default function Home() {
                         className="bg-zinc-100 shadow-zinc-500 shadow-md inset-shadow-2xs inset-shadow-white rounded-2xl px-5 my-2"
                     >
                         <AccordionTrigger>
-                            1. What is the AI Report Generator Agent?
+                            1. What is the Meme Creation App for Creators?
                         </AccordionTrigger>
                         <AccordionContent className="flex flex-col gap-4 text-balance">
                             <p>
-                                It&apos;s an AI-powered tool that transforms
-                                your topics or raw data into professional,
-                                well-structured reports. It organizes content
-                                into sections like Introduction, Analysis, and
-                                Conclusion, saving you hours of manual writing.
+                                It&apos;s a powerful and fun app that lets you
+                                create viral video memes using movie clips or
+                                your own footage. Add text, effects, stickers,
+                                and export instantly for social media.
                             </p>
                         </AccordionContent>
                     </AccordionItem>
@@ -303,12 +546,11 @@ export default function Home() {
                         </AccordionTrigger>
                         <AccordionContent className="flex flex-col gap-4 text-balance">
                             <p>
-                                Simply enter a topic or dataset, select your
-                                preferred report type (e.g., Market Report,
-                                Research Report, Comprehensive Analysis), and
-                                adjust length or formatting options. The AI
-                                instantly generates a polished draft for you to
-                                review and edit.
+                                Import a clip from movies or your gallery, trim
+                                or crop it, then add meme-style text, emojis,
+                                stickers, or filters. Export as MP4 or GIF in
+                                optimized sizes for Instagram, TikTok, or
+                                WhatsApp.
                             </p>
                         </AccordionContent>
                     </AccordionItem>
@@ -318,15 +560,14 @@ export default function Home() {
                         className="bg-zinc-100 shadow-zinc-500 shadow-md inset-shadow-2xs inset-shadow-white rounded-2xl px-5 my-2"
                     >
                         <AccordionTrigger>
-                            3. Can I customize the report content?
+                            3. Can I customize my memes?
                         </AccordionTrigger>
                         <AccordionContent className="flex flex-col gap-4 text-balance">
                             <p>
-                                Yes. You can refine the generated draft, add
-                                your own sections, and modify the AI-generated
-                                content. You can also enable CrewAI for
-                                collaborative report generation when you need
-                                deeper insights.
+                                Yes! You can adjust text, drag-and-drop stickers
+                                or GIFs, apply filters, change video speed, and
+                                choose from ready-made templates or create your
+                                own layout.
                             </p>
                         </AccordionContent>
                     </AccordionItem>
@@ -336,13 +577,13 @@ export default function Home() {
                         className="bg-zinc-100 shadow-zinc-500 shadow-md inset-shadow-2xs inset-shadow-white rounded-2xl px-5 my-2"
                     >
                         <AccordionTrigger>
-                            4. What kinds of reports can it generate?
+                            4. What formats can I export in?
                         </AccordionTrigger>
                         <AccordionContent className="flex flex-col gap-4 text-balance">
                             <p>
-                                It can generate Market Reports, Research
-                                Reports, Project Summaries, Business Analyses,
-                                and more — tailored to your topic and needs.
+                                You can export in MP4 or GIF formats with HD
+                                resolution. Watermark options are also available
+                                depending on your preference.
                             </p>
                         </AccordionContent>
                     </AccordionItem>
@@ -352,13 +593,14 @@ export default function Home() {
                         className="bg-zinc-100 shadow-zinc-500 shadow-md inset-shadow-2xs inset-shadow-white rounded-2xl px-5 my-2"
                     >
                         <AccordionTrigger>
-                            5. Can it include charts, data, or references?
+                            5. Is it optimized for social media?
                         </AccordionTrigger>
                         <AccordionContent className="flex flex-col gap-4 text-balance">
                             <p>
-                                Yes. You can choose to automatically include
-                                charts, statistics, references, or action points
-                                depending on your report type and preferences.
+                                Absolutely! The app supports popular aspect
+                                ratios and formats tailored for Instagram,
+                                TikTok, and WhatsApp so your memes look perfect
+                                anywhere.
                             </p>
                         </AccordionContent>
                     </AccordionItem>
@@ -368,14 +610,14 @@ export default function Home() {
                         className="bg-zinc-100 shadow-zinc-500 shadow-md inset-shadow-2xs inset-shadow-white rounded-2xl px-5 my-2"
                     >
                         <AccordionTrigger>
-                            6. Who can benefit from this tool?
+                            6. Who can use this app?
                         </AccordionTrigger>
                         <AccordionContent className="flex flex-col gap-4 text-balance">
                             <p>
-                                Students, researchers, business professionals,
-                                consultants, managers, and anyone who needs to
-                                generate clear, structured reports quickly and
-                                effectively.
+                                Creators, influencers, brands, and even friends
+                                who want to make fun, personalized memes.
+                                Perfect for viral campaigns, challenges, or just
+                                sharing laughs in group chats.
                             </p>
                         </AccordionContent>
                     </AccordionItem>
@@ -385,13 +627,13 @@ export default function Home() {
                         className="bg-zinc-100 shadow-zinc-500 shadow-md inset-shadow-2xs inset-shadow-white rounded-2xl px-5 my-2"
                     >
                         <AccordionTrigger>
-                            7. Can I export my reports?
+                            7. Do I need internet to use it?
                         </AccordionTrigger>
                         <AccordionContent className="flex flex-col gap-4 text-balance">
                             <p>
-                                Yes. Reports can be exported in Markdown or PDF
-                                formats. You can also copy the content directly
-                                for use in other tools or presentations.
+                                No auto-uploads — your content stays private.
+                                You can create memes offline and only
+                                share/export them when you&apos;re ready.
                             </p>
                         </AccordionContent>
                     </AccordionItem>
@@ -405,10 +647,10 @@ export default function Home() {
                         </AccordionTrigger>
                         <AccordionContent className="flex flex-col gap-4 text-balance">
                             <p>
-                                Core report generation features are free.
-                                Premium features like advanced formatting,
-                                collaborative CrewAI mode, and extended export
-                                options may require a subscription.
+                                Core features are free. Premium features like
+                                advanced effects, HD export without watermark,
+                                and access to exclusive templates may require a
+                                subscription.
                             </p>
                         </AccordionContent>
                     </AccordionItem>

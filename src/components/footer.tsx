@@ -10,11 +10,12 @@ function Footer() {
                     {/* Logo + Description */}
                     <div>
                         <h3 className="text-xl font-semibold text-gray-900">
-                            AI Report Generator
+                            Meme Creation App
                         </h3>
                         <p className="mt-2 text-sm leading-relaxed">
-                            Generate professional, AI-powered reports on any topic.
-                            Designed for business, research, and strategic insights.
+                            A powerful and fun app for creating viral video memes 
+                            with customizable text, effects, and export options. 
+                            Perfect for creators, influencers, and brands to boost engagement.
                         </p>
                     </div>
 
@@ -26,8 +27,9 @@ function Footer() {
                                 <Link href="/" className="hover:underline">Home</Link>
                             </li>
                             <li>
-                                <Link href="/report-generator" className="hover:underline">Generate Report</Link>
+                                <Link href="#memeCreateSection" className="hover:underline">Create Meme</Link>
                             </li>
+            
                         </ul>
                     </div>
 
@@ -42,7 +44,7 @@ function Footer() {
                                 <a href="#" className="hover:text-pink-600">Instagram</a>
                             </li>
                             <li>
-                                <a href="#" className="hover:text-blue-800">LinkedIn</a>
+                                <a href="#" className="hover:text-red-600">YouTube</a>
                             </li>
                             <li>
                                 <a href="#" className="hover:text-green-600">GitHub</a>
@@ -53,7 +55,7 @@ function Footer() {
 
                 {/* Bottom note */}
                 <div className="mt-10 text-center text-xs text-gray-500">
-                    © {new Date().getFullYear()} Kartavya Technology. All rights reserved.
+                    © {new Date().getFullYear()} Meme Creation App. All rights reserved.
                 </div>
             </footer>
         </div>
