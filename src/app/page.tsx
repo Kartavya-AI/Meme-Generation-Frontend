@@ -10,7 +10,7 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion";
-import reportIllustration from "../../public/images/resume-genius-9si2noVCVH8-unsplash.jpg";
+import reportIllustration from "../../public/images/markus-spiske-XrIfY_4cK1w-unsplash.jpg";
 import open from "../../public/images/share (1).png";
 import profile from "../../public/images/profile-user.png";
 import { InteractiveGridPattern } from "@/components/magicui/interactive-grid-pattern";
