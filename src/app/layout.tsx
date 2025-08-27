@@ -20,8 +20,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: " AI Report Generator",
-  description: "Generate professional, AI-powered reports on any topic. Designed for business, research, and strategic insights.",
+  title: "Meme Creation App",
+  description: "A powerful and fun app for creating viral video memes with customizable text, effects, and export options. Perfect for creators, influencers, and brands to boost engagement.",
 };
 
 export default function RootLayout({
